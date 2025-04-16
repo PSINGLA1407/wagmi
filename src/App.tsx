@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 type GameResult = 'win' | 'loss' | null;
-type SelectedAmount = '1SOL' | '2.5SOL' | '5SOL' | null;
+type SelectedAmount = '1SOL' | '2.5SOL' | '5SOL' | '0.5SOL' | null;
 
 const App = () => {
   const [result, setResult] = useState("");
@@ -151,6 +151,22 @@ const App = () => {
           <div className="amount-buttons">
             <button
               className={`amount-btn sol ${
+                selectedAmount === "0.5SOL" ? "selected" : ""
+              }`}
+              onClick={() => setSelectedAmount("0.5SOL")}
+            >
+              <div className="amount-content">
+                <div className="amount-main">
+                  <span className="currency">0.5 SOL</span>
+                </div>
+                <div className="amount-sub">
+                  <span className="wagmi-amount">50</span>
+                  <span className="wagmi-text">WAGMI</span>
+                </div>
+              </div>
+            </button>
+            <button
+              className={`amount-btn sol ${
                 selectedAmount === "1SOL" ? "selected" : ""
               }`}
               onClick={() => setSelectedAmount("1SOL")}
@@ -203,6 +219,56 @@ const App = () => {
                 <span>Enable Quickplay</span>
               </div>
             </button>
+          </div>
+        </div>
+
+        {/* Add Leaderboard Section */}
+        <div className="leaderboard-section">
+          <h3 className="leaderboard-title">Leaderboard</h3>
+          <div className="leaderboard-container">
+            <div className="leaderboard-item gold">
+              <span className="leaderboard-rank">01</span>
+              <div className="player-info">
+                <img src="/dp.png" alt="Player" className="player-avatar" />
+                <span className="player-name">bella98</span>
+              </div>
+              <div className="player-stats">
+                <div className="stars">
+                  <span className="star">★</span>
+                  <span className="star">★</span>
+                  <span className="star">★</span>
+                  <span className="star">★</span>
+                  <span className="star">★</span>
+                </div>
+                <div className="score">
+                  <img src="/coin.png" alt="coin" className="coin-icon" />
+                  <span>83342</span>
+                </div>
+              </div>
+            </div>
+
+            {[2, 3, 4, 5].map((rank) => (
+              <div key={rank} className="leaderboard-item">
+                <span className="leaderboard-rank">0{rank}</span>
+                <div className="player-info">
+                  <img src="/dp.png" alt="Player" className="player-avatar" />
+                  <span className="player-name">bella98</span>
+                </div>
+                <div className="player-stats">
+                  <div className="stars">
+                    <span className="star">★</span>
+                    <span className="star">★</span>
+                    <span className="star">★</span>
+                    <span className="star">★</span>
+                    <span className="star">★</span>
+                  </div>
+                  <div className="score">
+                    <img src="/coin.png" alt="coin" className="coin-icon" />
+                    <span>83342</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -332,11 +398,11 @@ const App = () => {
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          background-image: url("/game2.png");
+          background-image: url("/Game-bg.jpg");
           background-repeat: no-repeat;
-          background-size: 100%;
-          background-position: center;
-          transition: all 1s ease;
+          background-size: cover;
+          background-position: top center;
+          background-attachment: fixed;
         }
 
         .crypto-game::before {
@@ -580,36 +646,50 @@ const App = () => {
 
         .sol-selection {
           margin-top: 3rem;
+          background: rgba(255, 255, 255, 0.07);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 30px;
+          padding: 2rem 8rem;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          max-width: 2000px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .sol-selection h4 {
-          font-size: 1rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin: 0 0 1.5rem;
+          font-size: 1.2rem;
+          color: rgba(255, 255, 255, 0.9);
+          margin: 0 0 1.5rem 2rem;
           text-align: left;
           font-weight: 500;
           letter-spacing: 1px;
+          text-transform: uppercase;
         }
 
         .amount-buttons {
           display: flex;
-          gap: 1rem;
+          gap: 2rem;
           justify-content: center;
+          flex-wrap: nowrap;
+          margin: 0 2rem;
         }
 
         .amount-btn {
           background: transparent;
           border: none;
-          padding: 1.5rem;
-          border-radius: 24px;
+          padding: 1rem;
+          border-radius: 12px;
           color: white;
           cursor: pointer;
           transition: all 0.3s ease;
-          min-width: 280px;
+          min-width: 240px;
           position: relative;
           font-family: "Clash Display", sans-serif;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
           overflow: hidden;
+          flex: 1;
         }
 
         .amount-btn::before {
@@ -651,10 +731,10 @@ const App = () => {
         }
 
         .amount-main {
-          font-size: 2.5rem;
+          font-size: 1.6rem;
           font-weight: 600;
           letter-spacing: 1px;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.4rem;
           color: white;
           text-align: left;
           position: relative;
@@ -664,8 +744,8 @@ const App = () => {
         .amount-sub {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          font-size: 1.2rem;
+          gap: 0.4rem;
+          font-size: 0.9rem;
           color: white;
           text-align: left;
           position: relative;
@@ -704,13 +784,7 @@ const App = () => {
           transform: scale(0.98);
         }
 
-        .custom {
-          background: rgba(255, 255, 255, 0.05) !important;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .custom::before,
-        .custom::after {
+        .amount-btn.custom {
           display: none;
         }
 
@@ -969,6 +1043,10 @@ const App = () => {
           transition: all 1s ease;
         }
 
+        .popup-active {
+          position: relative;
+        }
+
         .popup-active::after {
           content: "";
           position: fixed;
@@ -979,7 +1057,7 @@ const App = () => {
           background: rgba(0, 0, 0, 0.7);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
-          z-index: 999;
+          z-index: 1;
         }
 
         .success-popup,
@@ -988,7 +1066,8 @@ const App = () => {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          z-index: 1000;
+          z-index: 2;
+          pointer-events: auto;
         }
 
         .yin-yang {
@@ -1025,6 +1104,138 @@ const App = () => {
         .amount-sub {
           color: rgba(255, 255, 255, 0.8);
           font-size: 1rem;
+        }
+
+        .leaderboard-section {
+          margin: 4rem auto;
+          width: 100%;
+          max-width: 1000px;
+          padding: 3rem;
+        }
+
+        .leaderboard-title {
+          font-size: 3.5rem;
+          color: white;
+          text-align: center;
+          margin-bottom: 3rem;
+          font-weight: 600;
+          letter-spacing: 2px;
+          background: linear-gradient(to right, #ffffff, #d1d1d1);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .leaderboard-container {
+          background: rgba(255, 255, 255, 0.07);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 30px;
+          padding: 2.5rem;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .leaderboard-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1.5rem 2rem;
+          margin: 1rem 0;
+          background: url("/leaderboard.png");
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          border-radius: 20px;
+          transition: all 0.3s ease;
+          min-height: 100px;
+        }
+
+        .leaderboard-item.gold {
+          background: url("/leaderboard-gold.png");
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          border: none;
+        }
+
+        .leaderboard-item:hover {
+          transform: translateY(-2px);
+          filter: brightness(1.1);
+        }
+
+        .leaderboard-rank {
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
+          min-width: 60px;
+        }
+
+        .gold .leaderboard-rank {
+          color: #ffd700;
+          text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .player-info {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex: 1;
+        }
+
+        .player-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .player-name {
+          font-size: 1.3rem;
+          color: white;
+          font-weight: 500;
+        }
+
+        .player-stats {
+          display: flex;
+          align-items: center;
+          gap: 3rem;
+        }
+
+        .stars {
+          display: flex;
+          gap: 4px;
+        }
+
+        .star {
+          color: #ffd700;
+          font-size: 1.2rem;
+        }
+
+        .score {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          color: white;
+          font-weight: 500;
+          font-size: 0.9rem;
+        }
+
+        .score .coin-icon {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+        }
+
+        .nav-item.rank {
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: rgba(255, 255, 255, 0.9);
+          padding: 0.25rem 0.75rem;
+          border-radius: 50px;
+          transition: all 0.3s ease;
         }
       `}</style>
     </div>
