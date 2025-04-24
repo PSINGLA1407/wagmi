@@ -26,6 +26,15 @@ const CryptoGame = () => {
           height: 100%;
         }
       `}</style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFLJ3ZW3N1"></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-MFLJ3ZW3N1');
+        `
+      }} />
       <div className="Cryptogame">
         <div className="navbar">
           <div className="logo">WAGMI💪</div>
